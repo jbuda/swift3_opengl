@@ -13,6 +13,7 @@
 		2421BB5A1E4241AF00AFE6D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB591E4241AF00AFE6D3 /* Assets.xcassets */; };
 		2421BB5D1E4241AF00AFE6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB5B1E4241AF00AFE6D3 /* LaunchScreen.storyboard */; };
 		2421BB651E424EA200AFE6D3 /* OpenGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2421BB641E424EA200AFE6D3 /* OpenGL.swift */; };
+		242F54ED1E435C0E00D81C2F /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 242F54EC1E435C0E00D81C2F /* shaders */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2421BB5C1E4241AF00AFE6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2421BB5E1E4241AF00AFE6D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2421BB641E424EA200AFE6D3 /* OpenGL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGL.swift; sourceTree = "<group>"; };
+		242F54EC1E435C0E00D81C2F /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		2421BB511E4241AF00AFE6D3 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
+				242F54EC1E435C0E00D81C2F /* shaders */,
 				2421BB521E4241AF00AFE6D3 /* AppDelegate.swift */,
 				2421BB541E4241AF00AFE6D3 /* ViewController.swift */,
 				2421BB561E4241AF00AFE6D3 /* Main.storyboard */,
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2421BB5D1E4241AF00AFE6D3 /* LaunchScreen.storyboard in Resources */,
+				242F54ED1E435C0E00D81C2F /* shaders in Resources */,
 				2421BB5A1E4241AF00AFE6D3 /* Assets.xcassets in Resources */,
 				2421BB581E4241AF00AFE6D3 /* Main.storyboard in Resources */,
 			);
@@ -303,6 +307,7 @@
 				2421BB631E4241AF00AFE6D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
