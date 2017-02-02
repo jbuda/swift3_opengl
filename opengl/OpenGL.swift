@@ -10,11 +10,28 @@ import UIKit
 import OpenGLES
 import GLKit
 
+struct Vertex {
+  var position:(Float,Float,Float)
+  var color:(Float,Float,Float,Float)
+}
+
 class OpenGL:UIView {
 
   var colorRenderBuffer = GLuint()
   var colorSlot = GLuint()
   var positionSlot = GLuint()
+  
+  let vertices = [
+    Vertex(position:(1,-1,0),color:(1,0,0,1)),
+    Vertex(position:(1,1,0),color:(0,1,0,1)),
+    Vertex(position:(-1,1,0),color:(0,0,1,1)),
+    Vertex(position:(-1,-1,0),color:(0,0,0,1))
+  ]
+  
+  let indices:[GLubyte] = [
+    0,1,2,
+    2,3,0
+  ]
   
   override class var layerClass:AnyClass {
     get {
@@ -41,6 +58,7 @@ class OpenGL:UIView {
     
     setupBuffers()
     compileShaders()
+    setupVertexBufferObjects()
     
     render()
   }
@@ -48,6 +66,15 @@ class OpenGL:UIView {
   private func render() {
     glClearColor(0, 104/255.0, 55.0/255.0, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+    
+    glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
+    
+    let size = GLsizei(MemoryLayout<Vertex>.size)
+    glVertexAttribPointer(positionSlot, 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), size,UnsafePointer<Int>(bitPattern:0))
+    glVertexAttribPointer(colorSlot, 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), size, UnsafePointer<Int>(bitPattern:MemoryLayout<Float>.size * 3))
+   
+    let vertexBufferOffset = UnsafeMutableRawPointer(bitPattern: 0)
+    glDrawElements(GLenum(GL_TRIANGLES), GLsizei((indices.count * MemoryLayout<GLubyte>.size)/MemoryLayout<GLubyte>.size),GLenum(GL_UNSIGNED_BYTE), vertexBufferOffset)
     
     context.presentRenderbuffer(Int(GL_RENDERBUFFER))
   }
@@ -65,6 +92,18 @@ class OpenGL:UIView {
     glGenFramebuffers(1, &frameBuffer)
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
     glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_RENDERBUFFER), colorRenderBuffer)
+  }
+  
+  private func setupVertexBufferObjects() {
+    var vertexBuffer = GLuint()
+    glGenBuffers(1, &vertexBuffer)
+    glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBuffer)
+    glBufferData(GLenum(GL_ARRAY_BUFFER), (vertices.count * MemoryLayout<Vertex>.size), vertices, GLenum(GL_STATIC_DRAW))
+    
+    var indexBuffer = GLuint()
+    glGenBuffers(1, &indexBuffer)
+    glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
+    glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), (indices.count * MemoryLayout<GLubyte>.size), indices, GLenum(GL_STATIC_DRAW))
   }
 }
 
