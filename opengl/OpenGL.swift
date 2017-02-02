@@ -18,8 +18,9 @@ struct Vertex {
 class OpenGL:UIView {
 
   var colorRenderBuffer = GLuint()
-  var colorSlot = GLuint()
-  var positionSlot = GLuint()
+  var colorSlot:GLuint!
+  var positionSlot:GLuint!
+  var projectionUniform:GLuint!
   
   let vertices = [
     Vertex(position:(1,-1,0),color:(1,0,0,1)),
@@ -32,6 +33,7 @@ class OpenGL:UIView {
     0,1,2,
     2,3,0
   ]
+
   
   override class var layerClass:AnyClass {
     get {
@@ -134,6 +136,13 @@ extension OpenGL {
     colorSlot = GLuint(glGetAttribLocation(programHandle, "SourceColor"))
     glEnableVertexAttribArray(positionSlot)
     glEnableVertexAttribArray(colorSlot)
+    
+    //let mat4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45), 0.5, 0.1, 100.0)
+    
+    
+    projectionUniform = GLuint(glGetUniformLocation(programHandle, "Projection"))
+    
+    //glUniformMatrix4fv(GLint(projectionUniform), 1, 0,)
   }
   
   fileprivate func compileShader(shader name:String,with type:GLenum)->GLuint? {
