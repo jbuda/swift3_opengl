@@ -27,21 +27,37 @@ class OpenGL:UIView {
 
   var colorRenderBuffer = GLuint()
   var colorSlot:GLuint!
+  var currentRotation:Float = 0
+  var depthRenderBuffer:GLuint = GLuint()
   var displayLink:CADisplayLink!
   var modelViewUniform:GLuint!
   var positionSlot:GLuint!
   var projectionUniform:GLuint!
   
   let vertices = [
-    Vertex(position:(1,-1,0),color:(1,0,0,1)),
-    Vertex(position:(1,1,0),color:(0,1,0,1)),
-    Vertex(position:(-1,1,0),color:(0,0,1,1)),
-    Vertex(position:(-1,-1,0),color:(0,0,0,1))
+    Vertex(position:(1,-1,1),color:(1,0,0,1)),
+    Vertex(position:(1,1,1),color:(0,1,0,1)),
+    Vertex(position:(-1,1,1),color:(0,0,1,1)),
+    Vertex(position:(-1,-1,1),color:(0,0,0,1)),
+    Vertex(position:(1,-1,-1),color:(1,0,0,1)),
+    Vertex(position:(1,1,-1),color:(1,0,0,1)),
+    Vertex(position:(-1,1,-1),color:(0,1,0,1)),
+    Vertex(position:(-1,-1,-1),color:(0,1,0,1))
   ]
   
   let indices:[GLubyte] = [
     0,1,2,
-    2,3,0
+    2,3,0,
+    4,5,6,
+    4,7,6,
+    2,7,3,
+    7,6,2,
+    0,4,1,
+    4,1,5,
+    6,2,1,
+    1,6,5,
+    0,3,7,
+    0,7,4
   ]
 
   
@@ -77,12 +93,17 @@ class OpenGL:UIView {
   
   func render(_ link:CADisplayLink) {
     glClearColor(0, 104/255.0, 55.0/255.0, 1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+    glEnable(GLenum(GL_DEPTH_TEST))
     
-    let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65), 0.5, 0.1, 100.0)
+    let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(90), 0.5, 0.1, 10)
     glUniformMatrix4fv(GLint(projectionUniform), 1, 0,projection.array)
     
-    let modelview = GLKMatrix4MakeTranslation(GLfloat(sin(CACurrentMediaTime())), 0, -7)
+    var modelview = GLKMatrix4MakeTranslation(GLfloat(sin(CACurrentMediaTime())), 0, -7)
+    
+    currentRotation = currentRotation + Float(link.duration * 90)
+    modelview = GLKMatrix4Rotate(modelview, GLKMathDegreesToRadians(currentRotation), 1, 1, 0)
+    
     glUniformMatrix4fv(GLint(modelViewUniform), 1, 0, modelview.array)
     
     glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
@@ -106,6 +127,10 @@ class OpenGL:UIView {
   // MARK: - Setup OpenGL view
   private func setupBuffers() {
     
+    glGenRenderbuffers(1, &depthRenderBuffer)
+    glBindRenderbuffer(GLenum(GL_RENDERBUFFER), depthRenderBuffer)
+    glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16),GLsizei(frame.width),GLsizei(frame.height))
+    
     glGenRenderbuffers(1, &colorRenderBuffer)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), colorRenderBuffer)
     
@@ -116,6 +141,7 @@ class OpenGL:UIView {
     glGenFramebuffers(1, &frameBuffer)
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
     glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_RENDERBUFFER), colorRenderBuffer)
+    glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), depthRenderBuffer)
   }
   
   private func setupVertexBufferObjects() {
