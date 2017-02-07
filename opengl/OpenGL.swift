@@ -15,6 +15,14 @@ struct Vertex {
   var color:(Float,Float,Float,Float)
 }
 
+extension GLKMatrix4 {
+  var array: [Float] {
+    return (0..<16).map { i in
+      self[i]
+    }
+  }
+}
+
 class OpenGL:UIView {
 
   var colorRenderBuffer = GLuint()
@@ -23,10 +31,10 @@ class OpenGL:UIView {
   var projectionUniform:GLuint!
   
   let vertices = [
-    Vertex(position:(1,-1,0),color:(1,0,0,1)),
-    Vertex(position:(1,1,0),color:(0,1,0,1)),
-    Vertex(position:(-1,1,0),color:(0,0,1,1)),
-    Vertex(position:(-1,-1,0),color:(0,0,0,1))
+    Vertex(position:(1,-1,-7),color:(1,0,0,1)),
+    Vertex(position:(1,1,-7),color:(0,1,0,1)),
+    Vertex(position:(-1,1,-7),color:(0,0,1,1)),
+    Vertex(position:(-1,-1,-7),color:(0,0,0,1))
   ]
   
   let indices:[GLubyte] = [
@@ -137,12 +145,14 @@ extension OpenGL {
     glEnableVertexAttribArray(positionSlot)
     glEnableVertexAttribArray(colorSlot)
     
-    //let mat4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45), 0.5, 0.1, 100.0)
-    
+    let mat4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65), 0.5, 0.1, 100.0)
     
     projectionUniform = GLuint(glGetUniformLocation(programHandle, "Projection"))
     
-    //glUniformMatrix4fv(GLint(projectionUniform), 1, 0,)
+    
+  
+
+    glUniformMatrix4fv(GLint(projectionUniform), 1, 0,mat4.array)
   }
   
   fileprivate func compileShader(shader name:String,with type:GLenum)->GLuint? {
