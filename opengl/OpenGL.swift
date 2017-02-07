@@ -27,14 +27,16 @@ class OpenGL:UIView {
 
   var colorRenderBuffer = GLuint()
   var colorSlot:GLuint!
+  var displayLink:CADisplayLink!
+  var modelViewUniform:GLuint!
   var positionSlot:GLuint!
   var projectionUniform:GLuint!
   
   let vertices = [
-    Vertex(position:(1,-1,-7),color:(1,0,0,1)),
-    Vertex(position:(1,1,-7),color:(0,1,0,1)),
-    Vertex(position:(-1,1,-7),color:(0,0,1,1)),
-    Vertex(position:(-1,-1,-7),color:(0,0,0,1))
+    Vertex(position:(1,-1,0),color:(1,0,0,1)),
+    Vertex(position:(1,1,0),color:(0,1,0,1)),
+    Vertex(position:(-1,1,0),color:(0,0,1,1)),
+    Vertex(position:(-1,-1,0),color:(0,0,0,1))
   ]
   
   let indices:[GLubyte] = [
@@ -66,16 +68,22 @@ class OpenGL:UIView {
     
     EAGLContext.setCurrent(context)
     
+    setupDisplayLink()
     setupBuffers()
     compileShaders()
     setupVertexBufferObjects()
-    
-    render()
+
   }
   
-  private func render() {
+  func render(_ link:CADisplayLink) {
     glClearColor(0, 104/255.0, 55.0/255.0, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+    
+    let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65), 0.5, 0.1, 100.0)
+    glUniformMatrix4fv(GLint(projectionUniform), 1, 0,projection.array)
+    
+    let modelview = GLKMatrix4MakeTranslation(GLfloat(sin(CACurrentMediaTime())), 0, -7)
+    glUniformMatrix4fv(GLint(modelViewUniform), 1, 0, modelview.array)
     
     glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
     
@@ -89,6 +97,12 @@ class OpenGL:UIView {
     context.presentRenderbuffer(Int(GL_RENDERBUFFER))
   }
   
+  // MARK: - Rendering timer
+  private func setupDisplayLink() {
+    displayLink = CADisplayLink(target: self, selector: #selector(render(_:)))
+    displayLink.add(to: RunLoop.current, forMode:.defaultRunLoopMode)
+  }
+
   // MARK: - Setup OpenGL view
   private func setupBuffers() {
     
@@ -145,14 +159,8 @@ extension OpenGL {
     glEnableVertexAttribArray(positionSlot)
     glEnableVertexAttribArray(colorSlot)
     
-    let mat4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65), 0.5, 0.1, 100.0)
-    
     projectionUniform = GLuint(glGetUniformLocation(programHandle, "Projection"))
-    
-    
-  
-
-    glUniformMatrix4fv(GLint(projectionUniform), 1, 0,mat4.array)
+    modelViewUniform = GLuint(glGetUniformLocation(programHandle, "Modelview"))
   }
   
   fileprivate func compileShader(shader name:String,with type:GLenum)->GLuint? {
