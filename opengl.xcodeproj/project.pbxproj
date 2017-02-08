@@ -102,6 +102,7 @@
 				TargetAttributes = {
 					2421BB4E1E4241AF00AFE6D3 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 5UDNV2VF8P;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -266,11 +267,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5UDNV2VF8P;
 				INFOPLIST_FILE = opengl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gfm.opengl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3de4df89-b15e-427a-b256-0c7e6fb60da0";
+				PROVISIONING_PROFILE_SPECIFIER = "Generic Development";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;

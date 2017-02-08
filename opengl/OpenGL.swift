@@ -9,6 +9,7 @@
 import UIKit
 import OpenGLES
 import GLKit
+import CoreMotion
 
 struct Vertex {
   var position:(Float,Float,Float)
@@ -75,6 +76,17 @@ class OpenGL:UIView {
     return self.layer as! CAEAGLLayer
   }()
   
+  lazy var motionManager:CMMotionManager = {
+    let manager = CMMotionManager()
+    manager.deviceMotionUpdateInterval = 0.05
+    
+    return manager
+  }()
+  
+  var zeroPoint:CMAttitude?
+  var quaterionRotation:GLKMatrix4!
+  var rotation:CMRotationMatrix?
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -84,26 +96,77 @@ class OpenGL:UIView {
     
     EAGLContext.setCurrent(context)
     
-    setupDisplayLink()
+    //setupDisplayLink()
     setupBuffers()
     compileShaders()
     setupVertexBufferObjects()
+    
+    if motionManager.isDeviceMotionAvailable {
+      
+      motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) { data,error in
+        guard let data = data else { return }
 
+        self.zeroPoint = self.zeroPoint ?? self.motionManager.deviceMotion!.attitude
+        
+        data.attitude.multiply(byInverseOf: self.zeroPoint!)
+
+        let quat = data.attitude.quaternion
+        
+        var quatX = quat.x
+        var quatY = quat.y
+        
+        if quatX >= 0.2 {
+          quatX = 0.2
+        } else if quatX <= -0.2 {
+          quatX = -0.2
+        }
+      
+        if quatY >= 0.2 {
+          quatY = 0.2
+        } else if quatY <= -0.2 {
+            quatY = -0.2
+        }
+        
+        let q = GLKQuaternionMake(Float(quatX), Float(quatY), 0.0, Float(quat.w))
+
+        
+        //self.rotation = data.attitude.rotationMatrix
+        self.quaterionRotation = GLKMatrix4MakeWithQuaternion(q)
+        
+        self.render(nil)
+      }
+      
+    }
+    
   }
   
-  func render(_ link:CADisplayLink) {
+  func render(_ link:CADisplayLink?) {
     glClearColor(0, 104/255.0, 55.0/255.0, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
     glEnable(GLenum(GL_DEPTH_TEST))
     
     let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(90), 0.5, 0.1, 10)
+
+    
     glUniformMatrix4fv(GLint(projectionUniform), 1, 0,projection.array)
     
-    var modelview = GLKMatrix4MakeTranslation(GLfloat(sin(CACurrentMediaTime())), 0, -7)
+    var modelview = GLKMatrix4MakeTranslation(0, 0, -7)
     
-    currentRotation = currentRotation + Float(link.duration * 90)
-    modelview = GLKMatrix4Rotate(modelview, GLKMathDegreesToRadians(currentRotation), 1, 1, 0)
+    if let r = rotation {
+ 
+      let deviceMotionAttitudeMatrix = GLKMatrix4Make(Float(r.m11), Float(r.m21), Float(r.m31), 0,
+                                                      Float(r.m12), Float(r.m22), Float(r.m32), 0,
+                                                      Float(r.m13), Float(r.m23), Float(r.m33), 0,
+                                                      0, 0, 0, 1)
+      
+      modelview = GLKMatrix4Multiply(modelview, deviceMotionAttitudeMatrix)
+  
+    }
     
+    if let qr = quaterionRotation {
+      modelview = GLKMatrix4Multiply(modelview, qr)
+    }
+      
     glUniformMatrix4fv(GLint(modelViewUniform), 1, 0, modelview.array)
     
     glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
