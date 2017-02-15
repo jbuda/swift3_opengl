@@ -8,24 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		2421BB531E4241AF00AFE6D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2421BB521E4241AF00AFE6D3 /* AppDelegate.swift */; };
-		2421BB551E4241AF00AFE6D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2421BB541E4241AF00AFE6D3 /* ViewController.swift */; };
 		2421BB581E4241AF00AFE6D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB561E4241AF00AFE6D3 /* Main.storyboard */; };
 		2421BB5A1E4241AF00AFE6D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB591E4241AF00AFE6D3 /* Assets.xcassets */; };
 		2421BB5D1E4241AF00AFE6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB5B1E4241AF00AFE6D3 /* LaunchScreen.storyboard */; };
-		2421BB651E424EA200AFE6D3 /* OpenGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2421BB641E424EA200AFE6D3 /* OpenGL.swift */; };
 		242F54ED1E435C0E00D81C2F /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 242F54EC1E435C0E00D81C2F /* shaders */; };
+		24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4EF1E545B8F009577F0 /* Buffers.swift */; };
+		24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F11E54632E009577F0 /* OpenGLView.swift */; };
+		24A8D4F41E5465D8009577F0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F31E5465D8009577F0 /* RootViewController.swift */; };
+		24A8D4F61E54693F009577F0 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F51E54693F009577F0 /* Shaders.swift */; };
+		24A8D4F81E546C5E009577F0 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F71E546C5E009577F0 /* Renderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2421BB4F1E4241AF00AFE6D3 /* opengl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opengl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2421BB521E4241AF00AFE6D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2421BB541E4241AF00AFE6D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2421BB571E4241AF00AFE6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2421BB591E4241AF00AFE6D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2421BB5C1E4241AF00AFE6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2421BB5E1E4241AF00AFE6D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2421BB641E424EA200AFE6D3 /* OpenGL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGL.swift; sourceTree = "<group>"; };
 		242F54EC1E435C0E00D81C2F /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
+		24A8D4EF1E545B8F009577F0 /* Buffers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffers.swift; sourceTree = "<group>"; };
+		24A8D4F11E54632E009577F0 /* OpenGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
+		24A8D4F31E5465D8009577F0 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		24A8D4F51E54693F009577F0 /* Shaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
+		24A8D4F71E546C5E009577F0 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +66,15 @@
 			children = (
 				242F54EC1E435C0E00D81C2F /* shaders */,
 				2421BB521E4241AF00AFE6D3 /* AppDelegate.swift */,
-				2421BB541E4241AF00AFE6D3 /* ViewController.swift */,
 				2421BB561E4241AF00AFE6D3 /* Main.storyboard */,
 				2421BB591E4241AF00AFE6D3 /* Assets.xcassets */,
 				2421BB5B1E4241AF00AFE6D3 /* LaunchScreen.storyboard */,
 				2421BB5E1E4241AF00AFE6D3 /* Info.plist */,
-				2421BB641E424EA200AFE6D3 /* OpenGL.swift */,
+				24A8D4EF1E545B8F009577F0 /* Buffers.swift */,
+				24A8D4F11E54632E009577F0 /* OpenGLView.swift */,
+				24A8D4F31E5465D8009577F0 /* RootViewController.swift */,
+				24A8D4F51E54693F009577F0 /* Shaders.swift */,
+				24A8D4F71E546C5E009577F0 /* Renderer.swift */,
 			);
 			path = opengl;
 			sourceTree = "<group>";
@@ -144,9 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2421BB551E4241AF00AFE6D3 /* ViewController.swift in Sources */,
-				2421BB651E424EA200AFE6D3 /* OpenGL.swift in Sources */,
+				24A8D4F41E5465D8009577F0 /* RootViewController.swift in Sources */,
+				24A8D4F61E54693F009577F0 /* Shaders.swift in Sources */,
 				2421BB531E4241AF00AFE6D3 /* AppDelegate.swift in Sources */,
+				24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */,
+				24A8D4F81E546C5E009577F0 /* Renderer.swift in Sources */,
+				24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
