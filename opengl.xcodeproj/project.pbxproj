@@ -12,6 +12,7 @@
 		2421BB5A1E4241AF00AFE6D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB591E4241AF00AFE6D3 /* Assets.xcassets */; };
 		2421BB5D1E4241AF00AFE6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2421BB5B1E4241AF00AFE6D3 /* LaunchScreen.storyboard */; };
 		242F54ED1E435C0E00D81C2F /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 242F54EC1E435C0E00D81C2F /* shaders */; };
+		247357C91E566A7D00225CBF /* MotionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247357C81E566A7D00225CBF /* MotionControl.swift */; };
 		24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4EF1E545B8F009577F0 /* Buffers.swift */; };
 		24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F11E54632E009577F0 /* OpenGLView.swift */; };
 		24A8D4F41E5465D8009577F0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F31E5465D8009577F0 /* RootViewController.swift */; };
@@ -28,6 +29,7 @@
 		2421BB5C1E4241AF00AFE6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2421BB5E1E4241AF00AFE6D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		242F54EC1E435C0E00D81C2F /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
+		247357C81E566A7D00225CBF /* MotionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionControl.swift; sourceTree = "<group>"; };
 		24A8D4EF1E545B8F009577F0 /* Buffers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffers.swift; sourceTree = "<group>"; };
 		24A8D4F11E54632E009577F0 /* OpenGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		24A8D4F31E5465D8009577F0 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				24A8D4F91E54B793009577F0 /* Objects.swift */,
 				24A8D4FB1E54C3A9009577F0 /* Scene.swift */,
 				24A8D4FD1E55BD0B009577F0 /* Shader.swift */,
+				247357C81E566A7D00225CBF /* MotionControl.swift */,
 			);
 			path = opengl;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */,
 				24A8D4FC1E54C3A9009577F0 /* Scene.swift in Sources */,
 				24A8D4FE1E55BD0B009577F0 /* Shader.swift in Sources */,
+				247357C91E566A7D00225CBF /* MotionControl.swift in Sources */,
 				24A8D4FA1E54B793009577F0 /* Objects.swift in Sources */,
 				24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */,
 			);

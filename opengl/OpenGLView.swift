@@ -52,7 +52,6 @@ extension OpenGLView {
   }
   
   fileprivate func startMotion() {
-    
     if motionManager.isDeviceMotionAvailable {
      
       motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) { data,error in
@@ -60,6 +59,8 @@ extension OpenGLView {
         
         self.scene.render(DeviceRotation(origin:self.motionManager.deviceMotion!.attitude,current:data.attitude))
       }
+      
+      
     }
   }
   
