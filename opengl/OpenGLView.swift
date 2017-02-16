@@ -10,10 +10,9 @@ import UIKit
 
 class OpenGLView:UIView {
 
-  var buffers:Buffers!
   lazy var context:EAGLContext = { return EAGLContext(api: .openGLES3) }()
-  var renderer:Renderer!
-  var shaders:Shaders!
+  
+  var scene:Scene!
   
   override class var layerClass:AnyClass {
     get {
@@ -37,11 +36,7 @@ class OpenGLView:UIView {
 extension OpenGLView {
   
   fileprivate func setup() {
-    buffers = Buffers(frame.size,context,layer as! CAEAGLLayer)
-    
-    shaders = Shaders()
-    
-    renderer = Renderer(frame.size,context,layer as! CAEAGLLayer,shaders.modelViewUniform,shaders.projectionUniform,shaders.colorSlot,shaders.positionSlot,buffers.indices)
+    scene = Scene(BufferParams(size:frame.size,ctx:context,layer:layer as! CAEAGLLayer))
   }
   
 }

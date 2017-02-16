@@ -15,8 +15,9 @@
 		24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4EF1E545B8F009577F0 /* Buffers.swift */; };
 		24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F11E54632E009577F0 /* OpenGLView.swift */; };
 		24A8D4F41E5465D8009577F0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F31E5465D8009577F0 /* RootViewController.swift */; };
-		24A8D4F61E54693F009577F0 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F51E54693F009577F0 /* Shaders.swift */; };
-		24A8D4F81E546C5E009577F0 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F71E546C5E009577F0 /* Renderer.swift */; };
+		24A8D4FA1E54B793009577F0 /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4F91E54B793009577F0 /* Objects.swift */; };
+		24A8D4FC1E54C3A9009577F0 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4FB1E54C3A9009577F0 /* Scene.swift */; };
+		24A8D4FE1E55BD0B009577F0 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8D4FD1E55BD0B009577F0 /* Shader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +31,9 @@
 		24A8D4EF1E545B8F009577F0 /* Buffers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffers.swift; sourceTree = "<group>"; };
 		24A8D4F11E54632E009577F0 /* OpenGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		24A8D4F31E5465D8009577F0 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		24A8D4F51E54693F009577F0 /* Shaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
-		24A8D4F71E546C5E009577F0 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		24A8D4F91E54B793009577F0 /* Objects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
+		24A8D4FB1E54C3A9009577F0 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		24A8D4FD1E55BD0B009577F0 /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +75,9 @@
 				24A8D4EF1E545B8F009577F0 /* Buffers.swift */,
 				24A8D4F11E54632E009577F0 /* OpenGLView.swift */,
 				24A8D4F31E5465D8009577F0 /* RootViewController.swift */,
-				24A8D4F51E54693F009577F0 /* Shaders.swift */,
-				24A8D4F71E546C5E009577F0 /* Renderer.swift */,
+				24A8D4F91E54B793009577F0 /* Objects.swift */,
+				24A8D4FB1E54C3A9009577F0 /* Scene.swift */,
+				24A8D4FD1E55BD0B009577F0 /* Shader.swift */,
 			);
 			path = opengl;
 			sourceTree = "<group>";
@@ -154,10 +157,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				24A8D4F41E5465D8009577F0 /* RootViewController.swift in Sources */,
-				24A8D4F61E54693F009577F0 /* Shaders.swift in Sources */,
 				2421BB531E4241AF00AFE6D3 /* AppDelegate.swift in Sources */,
 				24A8D4F01E545B8F009577F0 /* Buffers.swift in Sources */,
-				24A8D4F81E546C5E009577F0 /* Renderer.swift in Sources */,
+				24A8D4FC1E54C3A9009577F0 /* Scene.swift in Sources */,
+				24A8D4FE1E55BD0B009577F0 /* Shader.swift in Sources */,
+				24A8D4FA1E54B793009577F0 /* Objects.swift in Sources */,
 				24A8D4F21E54632E009577F0 /* OpenGLView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
