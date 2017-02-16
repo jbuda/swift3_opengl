@@ -9,17 +9,37 @@
 import Foundation
 import OpenGLES
 import GLKit
+import CoreMotion
+
+typealias DeviceRotation = (origin:CMAttitude,current:CMAttitude)
 
 struct Scene {
   
   var buffer:BufferParams!
+  var program:ColorProgram?
+  
+  var cube1 = Objects.Cube()
+  
+  struct DeviceMotion {
+    static var zeroPoint:CMAttitude?
+    static var quaterionRotation:GLKMatrix4!
+    static var rotation:CMRotationMatrix?
+  }
   
   init(_ params:BufferParams) {
     
     buffer = params
     
     Buffers.setupBuffers(params)
+    
+    shapes()
     construct()
+  }
+  
+  fileprivate mutating func shapes() {
+    
+    cube1.create()
+    
   }
   
   fileprivate mutating func construct() {
@@ -27,15 +47,16 @@ struct Scene {
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
     glEnable(GLenum(GL_DEPTH_TEST))
     
-    var cube1 = Objects.Cube()
-    cube1.create()
-    
     let shader = Shader(for: "vertex", for: "color")
-    if let g = shader.build() {
-      glViewport(0, 0, GLsizei(buffer.size.width), GLsizei(buffer.size.height))
     
-      let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(90), 0.5, 0.1, 10)
-      let modelview = GLKMatrix4MakeTranslation(0, 0, -7)
+    if let p = shader.build() {
+      program = p
+      glViewport(0, 0, GLsizei(buffer.size.width), GLsizei(buffer.size.height))
+    }
+      
+      //
+    
+
       
       /*
  
@@ -62,9 +83,52 @@ struct Scene {
        //    glUniformMatrix4fv(GLint(modelViewUniform), 1, 0, modelview.array)
  */
       
-      cube1.draw(g,projection: projection,modelview:modelview)
+
+  }
+  
+  func render(_ rotation:DeviceRotation?) {
+    if let program = program {
       
+      if let r = rotation {
+        deviceRotation(rotation)
+      }
+      
+      let projection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(90), 0.5, 0.1, 10)
+      let modelview = GLKMatrix4MakeTranslation(0, 0, -7)
+      
+      cube1.draw(program,projection: projection,modelview:modelview)
+    
       buffer.ctx.presentRenderbuffer(Int(GL_RENDERBUFFER))
     }
+  }
+}
+
+extension Scene {
+  
+  
+  fileprivate func deviceRotation(rotation:DeviceRotation) {
+   
+    DeviceMotion.zeroPoint = DeviceMotion.zeroPoint ?? reset
+    attitude.multiply(byInverseOf: DeviceMotion.zeroPoint!)
+    
+    let quat = attitude.quaternion
+    var quatX = quat.x
+    var quatY = quat.y
+    
+    if quatX >= 0.2 {
+      quatX = 0.2
+    } else if quatX <= -0.2 {
+      quatX = -0.2
+    }
+    
+    if quatY >= 0.2 {
+      quatY = 0.2
+    } else if quatY <= -0.2 {
+      quatY = -0.2
+    }
+    
+    let q = GLKQuaternionMake(Float(quatX), Float(quatY), 0.0, Float(quat.w))
+    
+    DeviceMotion.quaterionRotation = GLKMatrix4MakeWithQuaternion(q)
   }
 }

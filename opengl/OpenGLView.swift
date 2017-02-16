@@ -7,10 +7,18 @@
 //
 
 import UIKit
+import CoreMotion
 
 class OpenGLView:UIView {
 
   lazy var context:EAGLContext = { return EAGLContext(api: .openGLES3) }()
+  
+  lazy var motionManager:CMMotionManager = {
+    let manager = CMMotionManager()
+    manager.deviceMotionUpdateInterval = 0.05
+    
+    return manager
+  }()
   
   var scene:Scene!
   
@@ -37,6 +45,22 @@ extension OpenGLView {
   
   fileprivate func setup() {
     scene = Scene(BufferParams(size:frame.size,ctx:context,layer:layer as! CAEAGLLayer))
+    
+    if let _ = scene.program {
+      startMotion()
+    }
+  }
+  
+  fileprivate func startMotion() {
+    
+    if motionManager.isDeviceMotionAvailable {
+     
+      motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) { data,error in
+        guard let data = data else { return }
+        
+        self.scene.render(DeviceRotation(origin:self.motionManager.deviceMotion!.attitude,current:data.attitude))
+      }
+    }
   }
   
 }
